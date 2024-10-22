@@ -1,17 +1,17 @@
 import socket
 import threading
-from langchain.chains import LLMChain
-from langchain_core.prompts import (
+from langchain.chains import LLMChain # type: ignore
+from langchain_core.prompts import ( # type: ignore
     ChatPromptTemplate,
     HumanMessagePromptTemplate,
     MessagesPlaceholder,
 )
-from langchain_core.messages import SystemMessage
-from langchain.chains.conversation.memory import ConversationBufferWindowMemory
-from langchain_groq import ChatGroq
+from langchain_core.messages import SystemMessage # type: ignore
+from langchain.chains.conversation.memory import ConversationBufferWindowMemory # type: ignore
+from langchain_groq import ChatGroq # type: ignore
 import Constants
 
-def handle_client(client_socket, groq_chat, memory):
+def handle_client(client_socket, groq_chat, memory, scope):
     """
     Handle client connection and exchange messages.
     """
@@ -22,10 +22,15 @@ def handle_client(client_socket, groq_chat, memory):
             if not question:
                 break
 
+            if scope == 'new_employee':
+                context = 'Sei un bot aziendale che aiuta i nuovi dipendenti a orientarsi nella nuova azienda. Ti chiami MarIA e sei qui per aiutare. Come posso aiutarti oggi?'
+            else:
+                context = 'Sei un bot aziendale che aiuta i vecchi dipendenti a orientarsi nelle proposte aziendali, in particolare per capire quali servizi sono offerti internamente dalla azienda e aiuta il dipendente nel sodisfare e prevedere i bisogni dei clienti. Ti chiami ValerIA e sei qui per aiutare. Come posso aiutarti oggi?'
+
             # Costruisci il prompt per il chatbot
             prompt = ChatPromptTemplate.from_messages(
                 [
-                    SystemMessage(content='Sei un bot aziendale che aiuta i nuovi dipendenti a orientarsi nella nuova azienda.'),
+                    SystemMessage(content=context),
                     MessagesPlaceholder(variable_name="chat_history"),
                     HumanMessagePromptTemplate.from_template("{human_input}")
                 ]
@@ -68,12 +73,14 @@ def main():
         client_socket, addr = server.accept()
         print(f"Connessione accettata da {addr}")
 
+        # Ottieni lo scope del client
+        scope = client_socket.recv(1024).decode('utf-8')
+
         # Inizializza la memoria della conversazione per ogni nuova connessione
         memory = ConversationBufferWindowMemory(k=20, memory_key="chat_history", return_messages=True)
-        print("Memory inizializzata")
 
         # Gestisci il client in un thread separato e passa la memoria al client
-        client_handler = threading.Thread(target=handle_client, args=(client_socket, groq_chat, memory))
+        client_handler = threading.Thread(target=handle_client, args=(client_socket, groq_chat, memory, scope))
         client_handler.start()
 
 if __name__ == "__main__":
