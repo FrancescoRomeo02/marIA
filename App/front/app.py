@@ -29,7 +29,7 @@ fake_chat_history = [
 
 # Mantieni la connessione aperta
 if 'client_socket' not in st.session_state:
-    st.session_state['client_socket'] = create_connection()
+    st.session_state['client_socket'] = create_connection('other')  # Crea una connessione di tipo 'other'
 
 # Inizializza lo storico della chat corrente
 if 'chat_history' not in st.session_state:
@@ -103,3 +103,9 @@ if question:
     
     # Mostra tutti i messaggi
     render_messages(st.session_state['chat_history'])
+
+
+#TODO:
+# 1. Aggiungere la divisone tra nuovi e vecchi dipendenti
+# 2. Aggiungere la possibilità di cliccare su vecchie chat nella sidebar per caricarle nella chat principale
+    # 2.1. Salvare lo storico delle chat in locale per poterle ricaricare

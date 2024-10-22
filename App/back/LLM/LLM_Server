@@ -11,6 +11,7 @@ from langchain.chains.conversation.memory import ConversationBufferWindowMemory 
 from langchain_groq import ChatGroq # type: ignore
 import Constants
 
+
 def handle_client(client_socket, groq_chat, memory, scope):
     """
     Handle client connection and exchange messages.
@@ -23,9 +24,9 @@ def handle_client(client_socket, groq_chat, memory, scope):
                 break
 
             if scope == 'new_employee':
-                file = open('App/back/LLM/LLM_Server/knowBase1.txt', 'r')
+                file = open(Constants.FILE_PATH+'App/back/LLM/knowledge/knowBase1.txt', 'r')
             else:
-                file = open('App/back/LLM/LLM_Server/knowBase2.txt', 'r')
+                file = open(Constants.FILE_PATH+'App/back/LLM/knowledge/knowBase2.txt', 'r')
 
             context = file.read()
 
