@@ -23,9 +23,9 @@ def handle_client(client_socket, groq_chat, memory, scope):
                 break
 
             if scope == 'new_employee':
-                context = 'Sei un bot aziendale che aiuta i nuovi dipendenti a orientarsi nella nuova azienda. Ti chiami MarIA e sei qui per aiutare. Come posso aiutarti oggi?'
+                context = 'Sei un bot aziendale che aiuta i nuovi dipendenti a orientarsi nella nuova azienda. Ti chiami MarIA.'
             else:
-                context = 'Sei un bot aziendale che aiuta i vecchi dipendenti a orientarsi nelle proposte aziendali, in particolare per capire quali servizi sono offerti internamente dalla azienda e aiuta il dipendente nel sodisfare e prevedere i bisogni dei clienti. Ti chiami ValerIA e sei qui per aiutare. Come posso aiutarti oggi?'
+                context = 'Sei un bot aziendale che aiuta i vecchi dipendenti a orientarsi nelle proposte aziendali, in particolare per capire quali servizi sono offerti internamente dalla azienda e aiuta il dipendente nel sodisfare e prevedere i bisogni dei clienti. Ti chiami ValerIA.'
 
             # Costruisci il prompt per il chatbot
             prompt = ChatPromptTemplate.from_messages(
