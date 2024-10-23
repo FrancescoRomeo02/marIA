@@ -1,5 +1,8 @@
 # app.py
 import streamlit as st
+import json
+import os
+from datetime import date
 from server_connection import create_connection, send_question_to_server
 
 # Simulazione di chat storiche fittizie con data
@@ -49,7 +52,6 @@ for day in fake_chat_history:
     st.sidebar.markdown("---")  # Linea di separazione tra i giorni
 
 
-
 # Funzione per rendere i messaggi in stile chat WhatsApp
 def render_message(speaker, message):
     if speaker == "Utente":
@@ -85,6 +87,10 @@ def render_messages(chat_history=None):
 
 # Funzione per inviare domanda
 def send_question(question):
+    # Se non c'è una connessione, crea una nuova connessione
+    if not st.session_state['client_socket']:
+        st.session_state['client_socket'] = create_connection('other')
+
     # Se esiste una connessione e c'è una domanda
     if st.session_state['client_socket'] and question:
         # Invia la domanda al server e ricevi la risposta
@@ -94,18 +100,116 @@ def send_question(question):
         st.session_state['chat_history'].append(("Utente", question))
         st.session_state['chat_history'].append(("Chatbot", response))
 
+# Funzione per salvare lo storico della chat come oggetto JSON
+def save_chat_history(chat_history=None, chat_summary=None):
+    # Verifica se esistono già i file JSON
+    chat_history_path = "chat_history.json"
+    chat_summary_path = "chat_summary.json"
+    
+    # Carica i dati esistenti, se presenti
+    if os.path.exists(chat_history_path):
+        with open(chat_history_path, "r") as file:
+            existing_history = json.load(file)
+            print(existing_history)
+    else:
+        existing_history = {}
+
+    if os.path.exists(chat_summary_path):
+        with open(chat_summary_path, "r") as file:
+            existing_summary = json.load(file)
+    else:
+        existing_summary = {}
+
+    print(existing_summary)
+
+    # Creare un dizionario per memorizzare i messaggi di oggi e i summary
+    today = date.today().__str__()
+    chat_history_dict = {today: []}
+    chat_summary_dict = {today: []}
+
+    # Aggiungi i messaggi allo storico
+    for speaker, message in chat_history:
+        for key in existing_history.keys():
+            if key == today:
+                chat_history_dict[today].append((speaker, message))
+            else:
+                chat_history_dict[key] = existing_history[key]
+    # Aggiungi i summary alla lista
+    if chat_summary:
+        for summary in chat_summary:
+            chat_summary_dict[today].append(summary)
+
+
+    # # Aggiorna lo storico esistente
+    existing_history += chat_history_dict[today]
+
+    # Aggiorna i summary esistenti
+    existing_summary += chat_summary_dict[today]
+
+
+    # Salva lo storico della chat in un file JSON
+    with open(chat_history_path, "w") as file:
+        json.dump(existing_history, file, indent=4)
+
+    # Salva i summary della chat
+    with open(chat_summary_path, "w") as file:
+        json.dump(chat_summary, file, indent=4)
+
+
+# Funzione per chiedere un riassunto della chat
+def ask_summary():
+    # Controlla se esiste una connessione, altrimenti crea una nuova connessione
+    if not st.session_state['client_socket']:
+        st.session_state['client_socket'] = create_connection('other')
+    
+    # Se c'è una connessione, richiedi il riassunto
+    if st.session_state['client_socket']:
+        # Invia la domanda al server e ricevi la risposta
+        response = send_question_to_server(st.session_state['client_socket'], "Riassumi la conversazione usando un titolo come se fosse il titolo di un libro. non più di 7 parole")
+
+        # Salva il riassunto nella sessione
+        if 'chat_summary' not in st.session_state:
+            st.session_state['chat_summary'] = []
+
+        summary = {date.today().__str__(): response}
+        
+        st.session_state['chat_summary'].append(summary)
 
 
 # Invia la domanda anche se si preme "Invio"
 question = st.chat_input("Fai una domanda al chatbot:")
 if question:
     send_question(question)
-    
     # Mostra tutti i messaggi
     render_messages(st.session_state['chat_history'])
+
+
+# Termina la chat (posizionato alla fine dell'app)
+if st.sidebar.button("Termina Chat Corrente"):
+    # Chiedi un riassunto della chat
+    ask_summary()
+
+    # Salva lo storico della chat e il riassunto
+    save_chat_history(st.session_state['chat_history'], st.session_state['chat_summary'])
+    
+    # Chiudi la connessione
+    st.session_state['client_socket'].close()
+    st.session_state['client_socket'] = None
+    
+    # Resetta lo storico della chat
+    st.session_state['chat_history'] = []
+
+    # Resetta i summary della chat
+    st.session_state['chat_summary'] = []
 
 
 #TODO:
 # 1. Aggiungere la divisone tra nuovi e vecchi dipendenti
 # 2. Aggiungere la possibilità di cliccare su vecchie chat nella sidebar per caricarle nella chat principale
-    # 2.1. Salvare lo storico delle chat in locale per poterle ricaricare
+    # 2.1. Salvare lo storico delle chat in locale per poterle ricaricare (salvare come oggetto JSON) (summary fatto, storico da fare)
+    # 2.2 Caricare lo storico delle chat salvate in locale
+
+
+# BUG:
+# 1. il bot sembra rispondere, a volte, a domande a cui ha già risposto come se le ricevesse nuovamente (successo 1 volta)
+# 2. se la risposta  trppo lunga verrà usato più di un mesaggio per rispondere (successo durante due sessioni di test)
