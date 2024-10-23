@@ -55,6 +55,7 @@ def handle_client(client_socket, groq_chat, memory, scope):
 
     except Exception as e:
         print(f"Errore: {e}")
+    
     finally:
         client_socket.close()  # Chiude solo quando il client termina la connessione
         print("Connessione chiusa")
