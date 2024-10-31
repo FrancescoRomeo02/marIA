@@ -77,6 +77,11 @@ st.sidebar.subheader("Storico delle Chat")
 st.html("<h1 style='font-size: 70px; font-weight: 600; background-image: linear-gradient(to left, #1a84b8, #1aa4b8); color: transparent; background-clip: text; -webkit-background-clip: text;'>Ciao, sono MarIA.</h1>")
 st.html("<h1 style='font-size: 60px; font-weight: 400; background-image: linear-gradient(to left, #f5f5f5, #d3d3d3); color: transparent; background-clip: text; -webkit-background-clip: text;'>Come posso aiutarti oggi?</h1>")
 
+
+#Allert per versione demo+info
+st.sidebar.warning("Questa è una versione demo del chatbot. Non sono quindi disponibili alcune funzionalità.")
+st.sidebar.markdown("---")
+
 # Caricamento di chat fittizie per la sidebar
 fake_chat_history = load_fake_chat_history()
 
