@@ -1,3 +1,4 @@
+import random
 import streamlit as st
 from langchain.chains import LLMChain  # type: ignore
 from langchain_core.prompts import (  # type: ignore
@@ -39,7 +40,7 @@ def render_messages(chat_history):
 
 # Configurazione dell'API e del modello
 groq_api_key = GROQ_API_KEY
-model = 'llama3-8b-8192'
+model = random.choice(["gemma-7b-it", "llama-3.1-8b-instant", "llama-3.1-70b-versatile", "gemma2-9b-it"])
 groq_chat = ChatGroq(groq_api_key=groq_api_key, model_name=model)
 
 # Prompt per il chatbot
@@ -100,8 +101,8 @@ st.markdown(
 )
 st.html("<h1 style='font-size: 3vw; font-weight: 400; background-image: linear-gradient(to left, #f5f5f5, #d3d3d3); color: transparent; background-clip: text; -webkit-background-clip: text;'>Come posso aiutarti oggi?</h1>")
 
-st.warning("Questa è una demo limitata: alcune funzionalità complete saranno disponibili nella versione finale.")
-
+st.warning("Questa è una demo limitata: alcune funzionalità complete saranno disponibili nella versione finale.", icon="⚠️")
+st.warning("Modello LLM utilizzato: " + model, icon="ℹ️")
 # Caricamento di chat fittizie per la sidebar
 fake_chat_history = load_fake_chat_history()
 
