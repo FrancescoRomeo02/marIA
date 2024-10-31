@@ -124,6 +124,6 @@ if question:
     render_messages(st.session_state['chat_history'])
 
 # Pulsante per terminare la chat e resettare lo storico
-if st.sidebar.button("Termina Chat Corrente"):
+if st.button("Termina Chat Corrente"):
     st.session_state['chat_history'] = []
     st.session_state['chat_summary'] = None
