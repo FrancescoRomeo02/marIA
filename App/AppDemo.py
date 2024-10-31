@@ -12,6 +12,7 @@ from langchain_groq import ChatGroq  # type: ignore
 from front.file_manager import load_fake_chat_history
 
 GROQ_API_KEY = st.secrets["groq_api_key"]
+not_loaded = True
 
 # Inizializzazione del file di conoscenza
 file = open('App/back/LLM/knowledge/knowBase2.txt', 'r')
@@ -80,18 +81,21 @@ st.markdown(
     <style>
     @keyframes gradientAnimation {
         0% { background-position: 0% 50%; }
-        100% { background-position: 100% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
     }
 
     .animated-gradient-text {
-        font-size : clamp(2rem, 10vw, 5rem);
+        font-size: clamp(2rem, 10vw, 5rem);
         font-weight: 600;
-        background-image: linear-gradient(to left, #1a84b8, #1aa4b8, #1a84b8);
+        background-image: linear-gradient(270deg, #1a84b8, #1aa4b8, #1a84b8);
         color: transparent;
         background-clip: text;
         -webkit-background-clip: text;
-        background-size: 200% 200%;
-        animation: gradientAnimation 3s linear infinite;
+        background-size: 300% 300%;
+        animation: gradientAnimation 6s ease-in-out infinite;
+        /* Added text-shadow for a subtle depth effect */
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
     }
     </style>
 
@@ -108,22 +112,26 @@ fake_chat_history = load_fake_chat_history()
 
 # Mostra lo storico delle chat fittizie nella sidebar
 for day in fake_chat_history:
+    if not not_loaded:
+        break
+
     st.sidebar.markdown(f"### {day['date']}")
     for chat in day['chats']:
         st.sidebar.markdown(f"- {chat}")
     st.sidebar.markdown("---")
+not_loaded = False
 
 # Inizializzazione dello storico della chat
 if 'chat_history' not in st.session_state:
     st.session_state['chat_history'] = []
+
+# Pulsante per terminare la chat e resettare lo storico
+if st.sidebar.button("Termina Chat Corrente"):
+    st.session_state['chat_history'] = []
+    st.session_state['chat_summary'] = None
 
 # Input della domanda e invio
 question = st.chat_input("Fai una domanda al chatbot:")
 if question:
     send_question(question)
     render_messages(st.session_state['chat_history'])
-
-# Pulsante per terminare la chat e resettare lo storico
-if st.button("Termina Chat Corrente"):
-    st.session_state['chat_history'] = []
-    st.session_state['chat_summary'] = None
