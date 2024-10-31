@@ -100,8 +100,7 @@ st.markdown(
 )
 st.html("<h1 style='font-size: 60px; font-weight: 400; background-image: linear-gradient(to left, #f5f5f5, #d3d3d3); color: transparent; background-clip: text; -webkit-background-clip: text;'>Come posso aiutarti oggi?</h1>")
 
-st.warning("LA DEMO NON OFFRE TUTTE LE POSSIBILITA' PREVISTE DAL SISTEMA.")
-
+st.warning("Questa è una demo limitata: alcune funzionalità complete saranno disponibili nella versione finale.")
 
 # Caricamento di chat fittizie per la sidebar
 fake_chat_history = load_fake_chat_history()
