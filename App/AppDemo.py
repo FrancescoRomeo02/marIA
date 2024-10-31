@@ -8,11 +8,12 @@ from langchain_core.prompts import (  # type: ignore
 from langchain_core.messages import SystemMessage  # type: ignore
 from langchain.chains.conversation.memory import ConversationBufferWindowMemory  # type: ignore
 from langchain_groq import ChatGroq  # type: ignore
-from back.LLM import Constants
 from front.file_manager import load_fake_chat_history
 
+GROQ_API_KEY = st.secrets["groq_api_key"]
+
 # Inizializzazione del file di conoscenza
-file = open(Constants.FILE_PATH + 'App/back/LLM/knowledge/knowBase2.txt', 'r')
+file = open('App/back/LLM/knowledge/knowBase2.txt', 'r')
 
 # Definizione della funzione per mostrare i messaggi
 def render_message(speaker: str, message: str):
@@ -37,7 +38,7 @@ def render_messages(chat_history):
         render_message(speaker, message)
 
 # Configurazione dell'API e del modello
-groq_api_key = Constants.GROQ_API_KEY
+groq_api_key = GROQ_API_KEY
 model = 'llama3-8b-8192'
 groq_chat = ChatGroq(groq_api_key=groq_api_key, model_name=model)
 
