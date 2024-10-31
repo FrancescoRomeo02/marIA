@@ -6,8 +6,32 @@ from file_manager import save_chat_summary, load_fake_chat_history
 
 st.sidebar.subheader("Storico delle Chat")
 
-st.html("<h1 style='font-size: 70px; font-weight: 600; background-image: linear-gradient(to left, #1a84b8, #1aa4b8); color: transparent; background-clip: text; -webkit-background-clip: text;'>Ciao, sono MarIA.</h1>")
-st.html("<h1 style='font-size: 60px; font-weight: 400; background-image: linear-gradient(to left, #f5f5f5, #d3d3d3); color: transparent; background-clip: text; -webkit-background-clip: text;'>Come posso aiutarti oggi?</h1>")
+# Titoli e sottotitoli nell'app
+st.markdown(
+    """
+    <style>
+    @keyframes gradientAnimation {
+        0% { background-position: 0% 50%; }
+        100% { background-position: 100% 50%; }
+    }
+
+    .animated-gradient-text {
+        font-size: 5vw;
+        font-weight: 600;
+        background-image: linear-gradient(to left, #1a84b8, #1aa4b8, #1a84b8);
+        color: transparent;
+        background-clip: text;
+        -webkit-background-clip: text;
+        background-size: 200% 200%;
+        animation: gradientAnimation 3s linear infinite;
+    }
+    </style>
+
+    <h1 class="animated-gradient-text">Ciao, sono MarIA.</h1>
+    """,
+    unsafe_allow_html=True
+)
+st.html("<h1 style='font-size: 3vw; font-weight: 400; background-image: linear-gradient(to left, #f5f5f5, #d3d3d3); color: transparent; background-clip: text; -webkit-background-clip: text;'>Come posso aiutarti oggi?</h1>")
 
 fake_chat_history = load_fake_chat_history()
 

@@ -9,7 +9,7 @@ def render_message(speaker: str, message: str):
     """
     <style>
     [data-testid="stChatMessageContent"] p{
-        font-size: 1.2rem;
+        font-size: 1.2vw;
     }
     </style>
     """, unsafe_allow_html=True

@@ -83,7 +83,7 @@ st.markdown(
     }
 
     .animated-gradient-text {
-        font-size: 70px;
+        font-size: 5vw;
         font-weight: 600;
         background-image: linear-gradient(to left, #1a84b8, #1aa4b8, #1a84b8);
         color: transparent;
@@ -98,7 +98,7 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-st.html("<h1 style='font-size: 60px; font-weight: 400; background-image: linear-gradient(to left, #f5f5f5, #d3d3d3); color: transparent; background-clip: text; -webkit-background-clip: text;'>Come posso aiutarti oggi?</h1>")
+st.html("<h1 style='font-size: 3vw; font-weight: 400; background-image: linear-gradient(to left, #f5f5f5, #d3d3d3); color: transparent; background-clip: text; -webkit-background-clip: text;'>Come posso aiutarti oggi?</h1>")
 
 st.warning("Questa è una demo limitata: alcune funzionalità complete saranno disponibili nella versione finale.")
 
