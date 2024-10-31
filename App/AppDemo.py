@@ -54,7 +54,7 @@ prompt = ChatPromptTemplate.from_messages(
 )
 
 # Memoria della conversazione
-memory = ConversationBufferWindowMemory(k=20, memory_key="chat_history", return_messages=True)
+memory = ConversationBufferWindowMemory(k=10, memory_key="chat_history", return_messages=True)
 
 # Creazione della conversazione con LLM
 conversation = LLMChain(
@@ -84,7 +84,7 @@ st.markdown(
     }
 
     .animated-gradient-text {
-        font-size: 5vw;
+        font-size : clamp(2rem, 10vw, 5rem);
         font-weight: 600;
         background-image: linear-gradient(to left, #1a84b8, #1aa4b8, #1a84b8);
         color: transparent;
@@ -99,9 +99,9 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-st.html("<h1 style='font-size: 3vw; font-weight: 400; background-image: linear-gradient(to left, #f5f5f5, #d3d3d3); color: transparent; background-clip: text; -webkit-background-clip: text;'>Come posso aiutarti oggi?</h1>")
+st.html("<h1 style='font-size : clamp(1rem, 5vw, 2.5rem); font-weight: 400; background-image: linear-gradient(to left, #f5f5f5, #d3d3d3); color: transparent; background-clip: text; -webkit-background-clip: text;'>Come posso aiutarti oggi?</h1>")
 
-st.warning("Questa è una demo limitata: alcune funzionalità complete saranno disponibili nella versione finale.", icon="⚠️")
+st.warning("Questa è una demo limitata: alcune funzionalità saranno disponibili nella versione finale.", icon="⚠️")
 st.warning("Modello LLM utilizzato: " + model, icon="ℹ️")
 # Caricamento di chat fittizie per la sidebar
 fake_chat_history = load_fake_chat_history()
