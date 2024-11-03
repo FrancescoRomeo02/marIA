@@ -1,92 +1,92 @@
-# MAR/IA
+MAR/IA
 
-This repository contains the development of an internal configurator to map services, intercept business opportunities, and boost cross-selling. Designed for sales and employee training, it’s interactive, predictive, and enhances decision-making before client meetings.
+This repository contains the development of an internal configurator to map services, identify business opportunities, and boost cross-selling. Designed for sales and employee training, it’s interactive, predictive, and enhances decision-making before client meetings.
+
+Creating a Virtual Environment in Python and Installing Dependencies
+
+In this guide, I’ll show you how to create a virtual environment in Python and install dependencies from a file named requirements.txt.
+
+1. Creating a Virtual Environment
+
+First, it’s a good practice to create a virtual environment to isolate the project and manage dependencies independently from other projects. Here’s how to do it:
+
+	1.	Open your terminal or shell.
+	2.	Navigate to your project directory:
+
+cd /path/to/your/project
 
 
-## Creazione di un ambiente virtuale in Python e installazione delle dipendenze
+	3.	Create a virtual environment using the following command:
 
-In questa guida, ti mostrerò come creare un ambiente virtuale in Python e installare le dipendenze da un file chiamato `requirements.txt`.
+python -m venv env
 
-### 1. Creazione di un ambiente virtuale
+This will create a folder named env within the project directory.
 
-Prima di tutto, è una buona pratica creare un ambiente virtuale per isolare il progetto e gestire le dipendenze in modo indipendente dagli altri progetti. Ecco come farlo:
+2. Activating the Virtual Environment
 
-1. Apri il terminale o la shell.
-2. Vai alla directory del tuo progetto:
-   ```bash
-   cd /path/del/tuo/progetto
-   ```
-3. Crea un ambiente virtuale usando il seguente comando:
-   ```bash
-   python -m venv env
-   ```
-Questo creerà una cartella chiamata env all’interno della directory del progetto.
-### 2. Attivazione dell’ambiente virtuale
-Per attivare l’ambiente virtuale, usa i seguenti comandi in base al tuo sistema operativo:
-* su macOS/Linux
-```bash
+To activate the virtual environment, use the following commands based on your operating system:
+
+	•	on macOS/Linux:
+
 source env/bin/activate
-```
-* su Windows
-```bash
+
+
+	•	on Windows:
+
 .\env\Scripts\activate
-```
-Dopo aver attivato l’ambiente virtuale, vedrai il prefisso (env) all’inizio della riga nel terminale.
-### 3. Installazione delle dipendenze da un file requirements.txt
-Esegui il seguente comando:
-```bash
+
+
+
+After activating the virtual environment, you’ll see the prefix (env) at the beginning of the line in the terminal.
+
+3. Installing Dependencies from a requirements.txt File
+
+Run the following command:
+
 pip install -r requirements.txt
-```
-Questo installerà tutte le dipendenze specificate nel file requirements.txt nel tuo ambiente virtuale.
 
-## Utilizzo di GroqCloud per eseguire API Llama con Python
+This will install all dependencies specified in the requirements.txt file within your virtual environment.
 
-Questo repository contiene un esempio su come utilizzare ****GroqCloud**** per eseguire il modello ****Llama**** utilizzando l'SDK di Groq con Python.
+Using GroqCloud to Run Llama API with Python
 
-### 1. Creazione dell'account su GroqCloud
+This repository contains an example of how to use GroqCloud to run the Llama model using Groq’s SDK with Python.
 
-Per iniziare a usare GroqCloud, segui questi passi:
+1. Creating an Account on GroqCloud
 
-**-** Vai sul sito ufficiale di [**GroqCloud**](**https://groq.com/**) e crea un account.
+To start using GroqCloud, follow these steps:
 
-**-** Una volta registrato, accedi e ottieni le tue ****API keys**** necessarie per connetterti a GroqCloud dal tuo ambiente Python.
+- Go to the official GroqCloud website and create an account.
 
-### 2. Installazione del client Python
+- Once registered, log in and retrieve your API keys needed to connect to GroqCloud from your Python environment.
 
-Per connetterti a GroqCloud, dovrai installare il client Python fornito da Groq. Puoi farlo utilizzando  ****pip**** :
+2. Installing the Python Client
 
-```bash
+To connect to GroqCloud, you’ll need to install the Python client provided by Groq. You can do this using pip:
+
 pip install groq
-```
 
-### 3. Configurazione dell'ambiente locale
+3. Configuring the Local Environment
 
-Una volta ottenuta la chiave API dal tuo account GroqCloud, dovrai configurare il tuo ambiente per l’accesso:
+After obtaining your API key from your GroqCloud account, you’ll need to set up your environment for access:
 
-```bash
 export GROQ_API_KEY="your_api_key"
-```
 
-A questo punto puoi utilizzare [front_test](App/front/front_tests.py) per svolgere i tuoi test e capire come funziona l'LLM
+At this point, you can use front_test to run tests and understand how the LLM works.
 
-# Utilizzo di Streamlit per creare un'app web con Python
+Using Streamlit to Create a Web App with Python
 
-Questo repository contiene un esempio di come utilizzare **Streamlit** per creare una semplice applicazione web in Python.
+This repository contains an example of how to use Streamlit to create a simple web application in Python.
 
-## 1. Installazione di Streamlit
+1. Installing Streamlit
 
-Per installare Streamlit, puoi usare **pip**. Esegui il seguente comando:
+To install Streamlit, you can use pip. Run the following command:
 
-```bash
 pip install streamlit
-```
 
-## 2. Esecuzione dell'applicazione
+2. Running the Application
 
-Per avviare l’app, esegui il seguente comando dalla tua shell o terminale:
+To launch the app, run the following command from your shell or terminal:
 
-```bash
 streamlit run app.py
-```
 
-Questo aprirà l’applicazione web nel tuo browser predefinito.
+This will open the web application in your default browser.
