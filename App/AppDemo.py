@@ -51,7 +51,7 @@ if 'chat_history' not in st.session_state:
     st.session_state['model'] = None
     
     # Caricamento di chat fittizie per la sidebar
-    st.session_state['fake_chat_history'] = load_fake_chat_history()
+    st.session_state['fake_chat_history'] = load_fake_chat_history(3)
     
     # Configurazione dell'API e del modello
     model = random.choice(["gemma-7b-it", "llama-3.1-8b-instant", "llama-3.1-70b-versatile", "gemma2-9b-it"])

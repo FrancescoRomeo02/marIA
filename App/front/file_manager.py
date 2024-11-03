@@ -21,7 +21,7 @@ def save_chat_summary(chat_summary):
 
 
 
-def load_fake_chat_history():
+def load_fake_chat_history(items: int):
     # Ampia lista di chat simulate disponibili
     all_fake_chat_history = [
         {
@@ -154,6 +154,6 @@ def load_fake_chat_history():
     ]
 
     # Seleziona casualmente un numero di giorni tra 3 e 4
-    selected_history = random.sample(all_fake_chat_history, random.randint(3, 5))
+    selected_history = random.sample(all_fake_chat_history, random.randint(1, items))
     
     return selected_history
