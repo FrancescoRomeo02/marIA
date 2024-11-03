@@ -93,7 +93,6 @@ for day in st.session_state['fake_chat_history']:
 # Pulsante per terminare la chat e resettare lo storico
 if st.sidebar.button("Termina Chat Corrente"):
     st.session_state['chat_history'] = []
-    st.balloons()
     st.session_state['chat_summary'] = None
 
 # Bottone per segnalare un bug
