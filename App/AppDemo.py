@@ -96,6 +96,25 @@ if st.sidebar.button("Termina Chat Corrente"):
     st.balloons()
     st.session_state['chat_summary'] = None
 
+# Bottone per segnalare un bug
+if 'bug_report_open' not in st.session_state:
+    st.session_state['bug_report_open'] = False
+
+if st.sidebar.button("Segnala un Bug"):
+    st.session_state['bug_report_open'] = not st.session_state['bug_report_open']
+
+if st.session_state['bug_report_open']:
+    st.sidebar.subheader("Segnalazione Bug")
+    bug_description = st.sidebar.text_area("Descrivi il problema:")
+    st.sidebar.markdown("Inviando la segnalazione, accetti di condividere i tuoi dati con noi.")
+    if st.sidebar.button("Invia Segnalazione"):
+        # Simulazione dell'invio della segnalazione
+        if bug_description:
+            st.sidebar.success("Grazie per la segnalazione del bug!")
+            st.session_state['bug_report_open'] = False
+        else:
+            st.sidebar.error("Per favore, descrivi il problema prima di inviare.")
+
 # Titoli e sottotitoli nell'app
 st.markdown(
     """
@@ -133,5 +152,3 @@ question = st.chat_input("Fai una domanda al chatbot:")
 if question:
     send_question(question)
     render_messages(st.session_state['chat_history'])
-
-
